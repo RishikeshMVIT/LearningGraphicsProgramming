@@ -121,9 +121,9 @@ void GraphicsEngine::SetShaderProgram(const ShaderProgramPtr& program)
 	glUseProgram(program->GetID());
 }
 
-VertexArrayObjectPtr GraphicsEngine::CreateVertexArrayObject(const VertexBufferData& data)
+VertexArrayObjectPtr GraphicsEngine::CreateVertexArrayObject(const VertexBufferDesc& desc)
 {
-	return std::make_shared<VertexArrayObject>(data);
+	return std::make_shared<VertexArrayObject>(desc);
 }
 
 ShaderProgramPtr GraphicsEngine::CreateShaderProgram(const ShaderProgramDesc& desc)

@@ -21,6 +21,6 @@ private:
 
 private:
 	U32 m_programID = 0;
-	U32 m_attachedShaders[2] = {};
+	U32 m_attachedShaders[2];
 };
 

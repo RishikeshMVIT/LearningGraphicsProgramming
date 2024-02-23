@@ -67,7 +67,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Game\Assets\Shaders\BasicShader.vert" />
-    <None Include="Game\Assets\Shaders\BasicShader.frag" />
+    <None Include="Assets\Shaders\BasicShader.vert" />
+    <None Include="Assets\Shaders\BasicShader.frag" />
   </ItemGroup>
 </Project>

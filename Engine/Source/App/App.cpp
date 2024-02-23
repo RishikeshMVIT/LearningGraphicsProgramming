@@ -17,19 +17,37 @@ void App::OnCreate()
 {
 	const F32 triangleVertices[] = {
 		-0.5f, -0.5f, 0.0f,
+		 1.0f,  0.0f, 0.0f,
 		 0.5f, -0.5f, 0.0f,
-		 0.0f,  0.5f, 0.0f
+		 0.0f,  1.0f, 0.0f,
+		 0.0f,  0.5f, 0.0f,
+		 0.0f,  0.0f, 1.0f
 	};
 
+	VertexAttribute attributes[] = {
+		3, // Position
+		3  // Color
+	};
 
+	m_triangleVAO = m_graphicsEngine->CreateVertexArrayObject(
+		{
+			(void*)triangleVertices,
+			sizeof(F32) * (3 + 3),
+			3,
+			attributes,
+			2
+		});
 
-	m_triangleVAO = m_graphicsEngine->CreateVertexArrayObject({(void*)triangleVertices, sizeof(F32) * 3, 3});
-	m_shaderProgram = m_graphicsEngine->CreateShaderProgram({});
+	m_shaderProgram = m_graphicsEngine->CreateShaderProgram(
+		{
+			L"Assets/Shaders/BasicShader.vert", 
+			L"Assets/Shaders/BasicShader.frag" 
+		});
 }
 
 void App::OnUpdate()
 {
-	m_graphicsEngine->Clear(Vector4(1, 0, 0, 1));
+	m_graphicsEngine->Clear(Vector4(0, 0, 0, 1));
 
 	m_graphicsEngine->SetVertexArrayObject(m_triangleVAO);
 	m_graphicsEngine->SetShaderProgram(m_shaderProgram);

@@ -6,7 +6,7 @@
 class VertexArrayObject
 {
 public:
-	VertexArrayObject(const VertexBufferData& data);
+	VertexArrayObject(const VertexBufferDesc& desc);
 	~VertexArrayObject();
 
 public:
@@ -18,6 +18,6 @@ private:
 
 	U32 m_vertexBufferID = 0;
 	U32 m_vertexArrayObjectID = 0;
-	VertexBufferData m_vertexBufferData;
+	VertexBufferDesc m_vertexBufferDesc;
 };
 

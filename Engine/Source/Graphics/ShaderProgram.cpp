@@ -3,8 +3,8 @@
 ShaderProgram::ShaderProgram(const ShaderProgramDesc& desc)
 {
 	m_programID = glCreateProgram();
-	Attach(desc.vertexShaderFilePath, VertexShader);
-	Attach(desc.fragmentShaderFilePath, FragmentShader);
+	Attach(desc.vertexShaderFilePath, ShaderType::VertexShader);
+	Attach(desc.fragmentShaderFilePath, ShaderType::FragmentShader);
 	Link();
 }
 
@@ -27,33 +27,39 @@ void ShaderProgram::Attach(const wchar_t* shaderFilePath, const ShaderType& type
 {
 	std::string shaderCode;
 	std::ifstream shaderStream(shaderFilePath);
-	if (!shaderStream.is_open())
-		return;
 
-	std::stringstream sstr;
-	sstr << shaderStream.rdbuf();
-	shaderCode = sstr.str();
-	shaderStream.close();
+	if (shaderStream.is_open())
+	{
+		std::stringstream sstr;
+		sstr << shaderStream.rdbuf();
+		shaderCode = sstr.str();
+		shaderStream.close();
+	}
+	else
+	{
+		return;
+	}
 
 	U32 shaderID = 0;
 
-	switch (type)
-	{
-		case ShaderType::VertexShader:
-		{
-			glCreateShader(GL_VERTEX_SHADER);
-		}
-		case ShadeType::FragmentShader:
-		{
-			glCreateShader(GL_FRAGMENT_SHADER);
-		}
-		case ShadeType::GeometryShader:
-		case ShadeType::TesselationShader:
-		case ShadeType::ComputeShader:
-		{
+	if (type == VertexShader)
+		shaderID = glCreateShader(GL_VERTEX_SHADER);
+	else if (type == FragmentShader)
+		shaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
-		}
-	}
+	//switch (type)
+	//{
+	//	case ShaderType::VertexShader:
+	//	{
+	//		glCreateShader(GL_VERTEX_SHADER);
+	//		break;
+	//	}
+	//	case ShaderType::FragmentShader:
+	//	{
+	//		glCreateShader(GL_FRAGMENT_SHADER);
+	//		break;
+	//	}
+	//}
 
 	auto sourcePointer = shaderCode.c_str();
 

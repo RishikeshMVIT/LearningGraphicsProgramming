@@ -155,8 +155,8 @@
     <ClInclude Include="Engine\Include\Graphics\ShaderProgram.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Game\Assets\Shaders\BasicShader.frag" />
-    <None Include="Game\Assets\Shaders\BasicShader.vert" />
+    <None Include="Assets\Shaders\BasicShader.frag" />
+    <None Include="Assets\Shaders\BasicShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

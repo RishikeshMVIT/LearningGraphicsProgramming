@@ -20,13 +20,16 @@ CoreWindow::CoreWindow()
 
 	assert(m_cWnd);
 
+	RECT rc = { 0, 0, 960, 960 };
+	AdjustWindowRect(&rc, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, false);
+
 	m_hWnd = CreateWindowExW(
 		NULL,
 		MAKEINTATOM(m_cWnd),
 		L"Main Window",
 		WS_SYSMENU,
 		CW_USEDEFAULT, CW_USEDEFAULT,
-		960, 540,
+		rc.right - rc.left, rc.bottom - rc.top,
 		nullptr,
 		nullptr,
 		GetModuleHandle(nullptr),

@@ -20,7 +20,7 @@ public:
 	void SetShaderProgram(const ShaderProgramPtr& program);
 
 public:
-	VertexArrayObjectPtr CreateVertexArrayObject(const VertexBufferData& data);
+	VertexArrayObjectPtr CreateVertexArrayObject(const VertexBufferDesc& data);
 	ShaderProgramPtr CreateShaderProgram(const ShaderProgramDesc& desc);
 };
 
