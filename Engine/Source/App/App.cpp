@@ -15,13 +15,18 @@ App::~App()
 
 void App::OnCreate()
 {
-	const F32 triangleVertices[] = {
+	const F32 polygonVertices[] = {
 		-0.5f, -0.5f, 0.0f,
 		 1.0f,  0.0f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
+
+		-0.5f,  0.5f, 0.0f,
 		 0.0f,  1.0f, 0.0f,
-		 0.0f,  0.5f, 0.0f,
-		 0.0f,  0.0f, 1.0f
+
+		 0.5f, -0.5f, 0.0f,
+		 0.0f,  0.0f, 1.0f,
+
+		 0.5f,  0.5f, 0.0f,
+		 1.0f,  1.0f, 0.0f
 	};
 
 	VertexAttribute attributes[] = {
@@ -29,13 +34,18 @@ void App::OnCreate()
 		3  // Color
 	};
 
-	m_triangleVAO = m_graphicsEngine->CreateVertexArrayObject(
+	m_polygonVAO = m_graphicsEngine->CreateVertexArrayObject(
 		{
-			(void*)triangleVertices,
+			(void*)polygonVertices,
 			sizeof(F32) * (3 + 3),
-			3,
+			4,
 			attributes,
 			2
+		});
+
+	m_uniformBuffer = m_graphicsEngine->CreateUniformBuffer(
+		{
+			sizeof(UniformData)
 		});
 
 	m_shaderProgram = m_graphicsEngine->CreateShaderProgram(
@@ -43,15 +53,20 @@ void App::OnCreate()
 			L"Assets/Shaders/BasicShader.vert", 
 			L"Assets/Shaders/BasicShader.frag" 
 		});
+	
+	m_shaderProgram->SetUniformBufferSlot("UniformData", 0);
 }
 
 void App::OnUpdate()
 {
+	UniformData data = { 0.5f };
+	m_uniformBuffer->SetData(&data);
 	m_graphicsEngine->Clear(Vector4(0, 0, 0, 1));
 
-	m_graphicsEngine->SetVertexArrayObject(m_triangleVAO);
+	m_graphicsEngine->SetVertexArrayObject(m_polygonVAO);
+	m_graphicsEngine->SetUniformBuffer(m_uniformBuffer, 0);
 	m_graphicsEngine->SetShaderProgram(m_shaderProgram);
-	m_graphicsEngine->DrawTriangles(m_triangleVAO->GetVertexBufferSize(), 0);
+	m_graphicsEngine->DrawTriangles(TriangleType::TriangleStrip, m_polygonVAO->GetVertexBufferSize(), 0);
 
 	m_display->Present(false);
 }

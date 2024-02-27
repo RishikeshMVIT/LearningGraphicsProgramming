@@ -111,14 +111,40 @@ void GraphicsEngine::SetVertexArrayObject(const VertexArrayObjectPtr& vao)
 	glBindVertexArray(vao->GetID());
 }
 
-void GraphicsEngine::DrawTriangles(U32 vertexCount, U32 offset)
+void GraphicsEngine::DrawTriangles(const TriangleType& triangleType, U32 vertexCount, U32 offset)
 {
-	glDrawArrays(GL_TRIANGLES, offset, vertexCount);
+	auto glTriangleType = GL_TRIANGLES;
+
+	switch (triangleType)
+	{
+		case TriangleType::TriangleList:
+		{
+			glTriangleType = GL_TRIANGLES;
+			break;
+		}
+		case TriangleType::TriangleStrip:
+		{
+			glTriangleType = GL_TRIANGLE_STRIP;
+			break;
+		}
+	}
+
+	glDrawArrays(glTriangleType, offset, vertexCount);
 }
 
 void GraphicsEngine::SetShaderProgram(const ShaderProgramPtr& program)
 {
 	glUseProgram(program->GetID());
+}
+
+void GraphicsEngine::SetUniformBuffer(const UniformBufferPtr& buffer, U32 slot)
+{
+	glBindBufferBase(GL_UNIFORM_BUFFER, slot, buffer->GetID());
+}
+
+UniformBufferPtr GraphicsEngine::CreateUniformBuffer(const UniformBufferDesc& desc)
+{
+	return std::make_shared<UniformBuffer>(desc);
 }
 
 VertexArrayObjectPtr GraphicsEngine::CreateVertexArrayObject(const VertexBufferDesc& desc)

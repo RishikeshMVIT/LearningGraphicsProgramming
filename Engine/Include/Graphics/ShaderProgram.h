@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <vector>
 #include <Prerequisites.h>
 
 class ShaderProgram
@@ -14,6 +15,9 @@ public:
 
 public:
 	U32 GetID();
+
+public:
+	void SetUniformBufferSlot(const char* name, U32 slot);
 
 private:
 	void Attach(const wchar_t* shaderFilePath, const ShaderType& type);

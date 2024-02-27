@@ -143,6 +143,7 @@
     <ClCompile Include="Engine\Source\Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="Engine\Source\Graphics\VertexArrayObject.cpp" />
     <ClCompile Include="Engine\Source\Graphics\ShaderProgram.cpp" />
+    <ClCompile Include="Engine\Source\Graphics\UniformBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Include\App\App.h" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Engine\Include\Prerequisites.h" />
     <ClInclude Include="Engine\Include\Graphics\VertexArrayObject.h" />
     <ClInclude Include="Engine\Include\Graphics\ShaderProgram.h" />
+    <ClInclude Include="Engine\Include\Graphics\UniformBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\BasicShader.frag" />

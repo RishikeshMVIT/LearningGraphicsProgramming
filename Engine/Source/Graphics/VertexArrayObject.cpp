@@ -2,9 +2,9 @@
 
 VertexArrayObject::VertexArrayObject(const VertexBufferDesc& desc)
 {
-	if (!desc.vertexCount)	ENGINE_ERROR("VertexArrayObject Vertex Count is NULL");
-	if (!desc.vertexSize)	ENGINE_ERROR("VertexArrayObject Vertex Size is NULL");
-	if (!desc.vertices)		ENGINE_ERROR("VertexArrayObject Vertex Array is empty");
+	if (!desc.vertexCount)	ENGINE_ERROR("VertexArrayObject: Vertex Count is NULL");
+	if (!desc.vertexSize)	ENGINE_ERROR("VertexArrayObject: Vertex Size is NULL");
+	if (!desc.vertices)		ENGINE_ERROR("VertexArrayObject: Vertex Array is empty");
 
 	glGenVertexArrays(1, &m_vertexArrayObjectID);
 	glBindVertexArray(m_vertexArrayObjectID);

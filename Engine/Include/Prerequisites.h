@@ -7,9 +7,11 @@
 
 class VertexArrayObject;
 class ShaderProgram;
+class UniformBuffer;
 
 typedef std::shared_ptr<VertexArrayObject> VertexArrayObjectPtr;
 typedef std::shared_ptr<ShaderProgram> ShaderProgramPtr;
+typedef std::shared_ptr<UniformBuffer> UniformBufferPtr;
 
 typedef float F32;
 typedef int I32;
@@ -35,6 +37,23 @@ struct ShaderProgramDesc
 {
 	const wchar_t* vertexShaderFilePath;
 	const wchar_t* fragmentShaderFilePath;
+};
+
+struct UniformBufferDesc
+{
+	U32 size = 0;
+};
+
+struct UniformData
+{
+	F32 scale;
+};
+
+enum TriangleType
+{
+	TriangleList = 0,
+	TriangleStrip,
+	TriangleFan
 };
 
 enum ShaderType

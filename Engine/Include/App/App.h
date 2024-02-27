@@ -2,6 +2,8 @@
 
 #include "Platform\CoreWindow.h"
 #include "Graphics\GraphicsEngine.h"
+#include "Graphics\ShaderProgram.h"
+#include "Graphics\UniformBuffer.h"
 
 class App
 {
@@ -23,6 +25,7 @@ private:
 	std::unique_ptr<CoreWindow> m_display;
 	std::unique_ptr<GraphicsEngine> m_graphicsEngine;
 
-	VertexArrayObjectPtr m_triangleVAO;
+	VertexArrayObjectPtr m_polygonVAO;
 	ShaderProgramPtr m_shaderProgram;
+	UniformBufferPtr m_uniformBuffer;
 };
