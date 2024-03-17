@@ -1,5 +1,10 @@
 #include "App\App.h"
 
+struct UniformData
+{
+	Matrix4X4 world;
+};
+
 App::App()
 {
 	m_graphicsEngine = std::make_unique<GraphicsEngine>();
@@ -59,8 +64,33 @@ void App::OnCreate()
 
 void App::OnUpdate()
 {
-	UniformData data = { 0.5f };
+	auto currentTime = std::chrono::system_clock::now();
+	auto elapsedSeconds = std::chrono::duration<double>();
+
+	if (m_previousTime.time_since_epoch().count())
+		elapsedSeconds = currentTime - m_previousTime;
+
+	m_previousTime = currentTime;
+
+	auto deltaTime = (F32)elapsedSeconds.count();
+
+	m_scale += 3.14f * deltaTime;
+	auto currentScale = abs(sin(m_scale));
+
+	Matrix4X4 world, temp;
+
+	temp.SetIdentity();
+	temp.SetScale(Vector4(currentScale, currentScale, currentScale, 1));
+
+	world *= temp;
+
+	temp.SetIdentity();
+	temp.SetTranslation(Vector4(m_scale * 0.1f, 0, 0, 1));
+	world *= temp;
+
+	UniformData data = { world };
 	m_uniformBuffer->SetData(&data);
+
 	m_graphicsEngine->Clear(Vector4(0, 0, 0, 1));
 
 	m_graphicsEngine->SetVertexArrayObject(m_polygonVAO);

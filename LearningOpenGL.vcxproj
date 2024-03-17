@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Include\App\App.h" />
+    <ClInclude Include="Engine\Include\Math\Matrix4X4.h" />
     <ClInclude Include="Engine\Include\Math\Quad.h" />
     <ClInclude Include="Engine\Include\Math\Vector4.h" />
     <ClInclude Include="Engine\Include\Platform\CoreWindow.h" />

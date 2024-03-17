@@ -44,11 +44,6 @@ struct UniformBufferDesc
 	U32 size = 0;
 };
 
-struct UniformData
-{
-	F32 scale;
-};
-
 enum TriangleType
 {
 	TriangleList = 0,

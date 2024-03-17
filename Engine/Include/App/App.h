@@ -1,6 +1,9 @@
 #pragma once
 
+#include <chrono>
+
 #include "Platform\CoreWindow.h"
+#include "Math\Matrix4X4.h"
 #include "Graphics\GraphicsEngine.h"
 #include "Graphics\ShaderProgram.h"
 #include "Graphics\UniformBuffer.h"
@@ -28,4 +31,7 @@ private:
 	VertexArrayObjectPtr m_polygonVAO;
 	ShaderProgramPtr m_shaderProgram;
 	UniformBufferPtr m_uniformBuffer;
+
+	std::chrono::system_clock::time_point m_previousTime;
+	F32 m_scale = 1.0f;
 };
