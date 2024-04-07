@@ -22,7 +22,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{49ecef63-332c-4b6b-a0c8-48dab52b4f1b}</ProjectGuid>
+    <ProjectGuid>{e1650aae-45a6-4238-bb53-597fda75732c}</ProjectGuid>
     <RootNamespace>LearningVulkan</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
