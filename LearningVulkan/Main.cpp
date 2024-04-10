@@ -1,126 +1,85 @@
 
 #define WIN32_LEAN_MEAN
 
-#include <Windows.h>
+#include <iostream>
+#include <vector>
 
-LRESULT OnWindowMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-	switch (msg)
-	{
-		case WM_SIZE:
-		{
-
-		} break;
-
-		case WM_PAINT:
-		{
-
-		} break;
-
-		case WM_CLOSE:
-		{
-			if (MessageBoxExW(hWnd, L"Do you want to quit?", L"Quit", 0, MB_OKCANCEL))
-			{
-				// Logic for quitting
-			}
-		} break;
-
-		case WM_DESTROY:
-		{
-			PostQuitMessage(0);
-		} break;
-
-		case WM_CLOSE:
-		{
-
-		} break;
-
-		default:
-		{
-			return DefWindowProcW(hWnd, msg, wParam, lParam);
-		}
-	}
-
-	return 0;
-}
-
-class CoreWindow
-{
-public:
-	CoreWindow();
-	~CoreWindow();
-
-	bool Initialize()
-	{
-		const wchar_t* className = L"Core Window";
-
-		WNDCLASSEXW wcex = {};
-		wcex.cbSize         = sizeof(wcex);
-		wcex.style          = CS_OWNDC;
-		wcex.lpfnWndProc    = OnWindowMessage;
-		wcex.cbClsExtra     = 0;
-		wcex.cbWndExtra     = 0;
-		wcex.hInstance      = GetModuleHandleW(nullptr);
-		wcex.hIcon          = LoadIconW(nullptr, IDI_APPLICATION);
-		wcex.hCursor        = LoadCursorW(nullptr, IDC_ARROW);
-		wcex.hbrBackground  = nullptr;
-		wcex.lpszMenuName   = nullptr;
-		wcex.lpszClassName  = className;
-		wcex.hIconSm        = LoadIconW(nullptr, IDI_APPLICATION);
-
-		windowClass = RegisterClassExW(&wcex);
-
-		if (!windowClass)
-			return false;
-		
-		windowHandle = CreateWindowExW(
-			WS_EX_APPWINDOW | WS_EX_OVERLAPPEDWINDOW,
-			(LPCWSTR)windowClass,
-			L"Main Window",
-			WS_OVERLAPPEDWINDOW,
-			CW_USEDEFAULT, CW_USEDEFAULT,
-			960, 540,
-			nullptr,
-			nullptr,
-			GetModuleHandleW(nullptr),
-			nullptr
-		);
-
-		if (!windowHandle)
-			return false;
-		
-		isRunning = true;
-		ShowWindow(windowHandle, SW_SHOW);
-
-		return true;
-	}
-
-	void Run()
-	{
-		while (isRunning)
-		{
-			MSG msg = {};
-			while (PeekMessageW(&msg, windowHandle, 0, 0, PM_REMOVE))
-			{
-				TranslateMessage(&msg);
-				DispatchMessageW(&msg);
-			}
-		}
-	}
-
-	void Shutdown();
-
-private:
-	HWND windowHandle = 0;
-	ATOM windowClass = 0;
-	isRunning = false;
-};
+#include <vulkan\vulkan.h>
 
 int main()
 {
-	CoreWindow* window;
-	window->Initialize();
-	window->Run();
-	window->Shutdown();
+	VkInstance vkInstance;
+
+	uint32_t extensionCount = 0;
+	uint32_t layerCount = 0;
+
+	std::vector<const char*> extensions;
+	std::vector<const char*> layers;
+
+	if (vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr) != VK_SUCCESS)
+	{
+		throw std::runtime_error("Failed to enumerate extensions")
+	}
+
+	std::vector<VkExtensionProperties> extensionProperties(extensionCount);
+
+	if (vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensionProperties) != VK_SUCCESS)
+	{
+		throw std::runtime_error("Failed to get extensions properties")
+	}
+
+	for (auto& extension : extensionProperties)
+	{
+		extensions.insert(extension.extensionName);
+	}
+
+	VkApplicationInfo vkAppInfo = {};
+	vkAppInfo.sType					= VK_STRUCTURE_TYPE_APPLICATION_INFO;
+	vkAppInfo.pNext					= nullptr;
+	vkAppInfo.pApplicationName		= "LearningVulkan";
+	vkAppInfo.applicationVersion	= VK_MAKE_VERSION(1, 3, 0);
+	vkAppInfo.pEngineName			= "No Engine";
+	vkAppInfo.engineVersion			= 0;
+	vkAppInfo.apiVersion			= VK_MAKE_API_VERSION(0, 1, 3, 0);
+
+	VkInstanceCreateInfo vkInstanceInfo = {};
+	vkInstanceInfo.sType					 = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+	//vkInstanceInfo.pNext					 = nullptr;
+	//vkInstanceInfo.flags					 = 0;
+	vkInstanceInfo.pApplicationInfo			 = &vkAppInfo;
+	//vkInstanceInfo.enabledLayerCount		 = layerCount;
+	//vkInstanceInfo.ppEnabledLayerNames	 = layers;
+	//vkInstanceInfo.enabledExtensionCount	 = extensionCount;
+	//vkInstanceInfo.ppEnabledExtensionNames = extensions;
+
+	if (vkCreateInstance(&vkInstanceInfo, nullptr, &vkInstance) != VK_SUCCESS)
+	{
+		throw std::runtime_error("Failed to create vulkan instance");
+	}
+	
+	vkDestroyInstance(vkInstance, nullptr);
+
 	return 0;
 }
+
+class Renderer
+{
+private:
+	VkInstance instance;
+	uint32_t extensionCount = 0;
+	uint32_t layerCount = 0;
+
+	std::vector<const char*> extensions;
+	std::vector<const char*> layers;
+
+	#if _DEBUG
+	std::vector<const char*> validationLayers;
+	#endif // DEBUG
+
+	void Initialize();
+	void Shutdown();
+
+	inline void GetExtensions();
+	inline void Getlayers();
+	inline void CheckValidationLayerSupport();
+};
