@@ -64,6 +64,44 @@ int main()
 
 class Renderer
 {
+
+public:
+	void Initialize()
+	{
+		//App info
+		VkApplicationInfo vkAppInfo = {};
+		vkAppInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+		vkAppInfo.pNext = nullptr;
+		vkAppInfo.pApplicationName = "LearningVulkan";
+		vkAppInfo.applicationVersion = VK_MAKE_VERSION(1, 3, 0);
+		vkAppInfo.pEngineName = "No Engine";
+		vkAppInfo.engineVersion = 0;
+		vkAppInfo.apiVersion = VK_MAKE_API_VERSION(0, 1, 3, 0);
+
+		//Create Instance
+
+		VkInstanceCreateInfo vkInstanceInfo = {};
+		vkInstanceInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+		//vkInstanceInfo.pNext					 = nullptr;
+		//vkInstanceInfo.flags					 = 0;
+		vkInstanceInfo.pApplicationInfo = &vkAppInfo;
+		//vkInstanceInfo.enabledLayerCount		 = layerCount;
+		//vkInstanceInfo.ppEnabledLayerNames	 = layers;
+		//vkInstanceInfo.enabledExtensionCount	 = extensionCount;
+		//vkInstanceInfo.ppEnabledExtensionNames = extensions;
+
+		if (vkCreateInstance(&vkInstanceInfo, nullptr, &instance) != VK_SUCCESS)
+		{
+			throw std::runtime_error("Failed to create vulkan instance");
+		}
+	}
+	void Shutdown();
+
+private:
+	inline void GetExtensions();
+	inline void GetLayers();
+	inline void CheckValidationLayerSupport();
+
 private:
 	VkInstance instance;
 	uint32_t extensionCount = 0;
@@ -75,11 +113,4 @@ private:
 	#if _DEBUG
 	std::vector<const char*> validationLayers;
 	#endif // DEBUG
-
-	void Initialize();
-	void Shutdown();
-
-	inline void GetExtensions();
-	inline void Getlayers();
-	inline void CheckValidationLayerSupport();
 };
