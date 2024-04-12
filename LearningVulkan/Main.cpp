@@ -44,7 +44,6 @@ int main()
 	}
 	#endif // _DEBUG
 
-
 	VkInstanceCreateInfo vkInstanceInfo = {};
 	vkInstanceInfo.sType					= VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 	//vkInstanceInfo.pNext					= nullptr;
@@ -60,6 +59,8 @@ int main()
 		throw std::runtime_error("Failed to create vulkan instance");
 	}
 	
+
+
 	#ifdef _DEBUG
 	vkDestroyDebugUtilsMessengerEXT(vkInstance, vkDebugMessenger, nullptr);
 	#endif // _DEBUG
@@ -79,12 +80,56 @@ public:
 private:
 	inline void GetExtensions();
 	inline void GetLayers();
-	inline void CheckValidationLayerSupport();
+	inline void CheckValidationLayerSupport()
+	{
+		uint32_t layerCount;
+		vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
+
+		std::vector<VkLayerProperties> availableLayers(layerCount);
+		vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
+
+		for (const char* layerName : validationLayers)
+		{
+			bool layerFound = false;
+
+			for (const auto& layerProperties : availableLayers)
+			{
+				if (strcmp(layerName, layerProperties.layerName) == 0)
+				{
+					layerFound = true;
+					break;
+				}
+
+				if (!layerFound)
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+	inline void GetPhysicalDevice()
+	{
+		uint32_t deviceCount = 0;
+		vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
+
+		if (deviceCount == 0)
+		{
+			throw std::runtime_error("Failed to find vulkan compatible GPU");
+		}
+
+		std::vector<VkPhysicalDevice> devices(deviceCount);
+		vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
+
+
+	}
 
 	static void DebugCallback();
 
 private:
 	VkInstance instance;
+	VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
 	uint32_t extensionCount = 0;
 	uint32_t layerCount = 0;
 
