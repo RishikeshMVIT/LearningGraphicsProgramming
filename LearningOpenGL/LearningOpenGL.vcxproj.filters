@@ -13,92 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Platform">
-      <UniqueIdentifier>{7d545e61-c240-426e-8e95-33fdcbd903b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Graphics">
-      <UniqueIdentifier>{eae9824a-6435-43fe-b5fa-e292aefa2114}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Math">
-      <UniqueIdentifier>{e1d7a8b2-60a8-42ce-9d42-49b2efd1a7f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Graphics">
-      <UniqueIdentifier>{52add016-65a1-4f84-a6a4-43b3a8268686}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Platform">
-      <UniqueIdentifier>{ef8c3e94-0729-4b48-8126-561c9a04c143}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders">
+    <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{71ad6f3e-0360-4663-bac3-52de5cb79902}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game\Main.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Source\App\App.cpp">
+    <ClCompile Include="Source\glad.c">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Vendor\glad\src\glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Vendor\glad\src\glad_wgl.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Source\Graphics\GraphicsEngine.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Source\Graphics\ShaderProgram.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Source\Graphics\UniformBuffer.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Source\Graphics\VertexArrayObject.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Source\Platform\CoreWindow.cpp">
-      <Filter>Source Files\Platform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\Include\App\App.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Include\Prerequisites.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Include\Math\Matrix4X4.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Include\Math\Quad.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Include\Math\Vector4.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Include\Platform\CoreWindow.h">
-      <Filter>Header Files\Platform</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Include\Graphics\GraphicsEngine.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Include\Graphics\ShaderProgram.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Include\Graphics\UniformBuffer.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Include\Graphics\VertexArrayObject.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Shaders\BasicShader.frag">
-      <Filter>Shaders</Filter>
+    <None Include="Resources\Shader\BasicShader.vert">
+      <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="Assets\Shaders\BasicShader.vert">
-      <Filter>Shaders</Filter>
+    <None Include="Resources\Shader\BasicShader.frag">
+      <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>
