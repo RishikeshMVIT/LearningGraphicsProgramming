@@ -39,7 +39,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
     GLchar infoLog[512];
 
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexCode, NULL);
+    glShaderSource(vertexShader, 1, &vShaderCode, NULL);
     glCompileShader(vertexShader);
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &result);
     if (!result)
@@ -49,7 +49,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
     }
 
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentCode, NULL);
+    glShaderSource(fragmentShader, 1, &fShaderCode, NULL);
     glCompileShader(fragmentShader);
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &result);
     if (!result)
@@ -72,6 +72,11 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+}
+
+Shader::~Shader()
+{
+    glDeleteProgram(id);
 }
 
 void Shader::Use()
