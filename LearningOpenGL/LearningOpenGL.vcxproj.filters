@@ -19,15 +19,39 @@
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{e2113818-4996-4dff-906f-8b906d5c8de0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Vendor">
+      <UniqueIdentifier>{443e31f5-e5cd-4b0a-af5f-251f859d9d4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{625790e5-f658-4e3f-8154-545b78fa0075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{7c22c681-4de2-4720-b89d-14f25675a411}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="glad.c">
+      <Filter>Source Files\Vendor</Filter>
     </ClCompile>
-    <ClCompile Include="Source\glad.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="stb_image.c">
+      <Filter>Source Files\Vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="EBO.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="VAO.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="VBO.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -40,8 +64,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="VBO.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="EBO.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="VAO.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

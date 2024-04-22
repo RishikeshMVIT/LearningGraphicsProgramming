@@ -4,8 +4,15 @@
 
 #include <glad\glad.h>
 #include <GLFW\glfw3.h>
+#include <stb\stb_image.h>
 
+#include "CoreWindow.h"
+
+#include "VAO.h"
+#include "VBO.h"
+#include "EBO.h"
 #include "Shader.h"
+#include "Texture.h"
 
 void OnFramebufferResize(GLFWwindow* window, int width, int height)
 {
@@ -28,7 +35,7 @@ int main()
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//Create Window
-	GLFWwindow* window = glfwCreateWindow(960, 540, "LearningOpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(960, 960, "LearningOpenGL", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -57,9 +64,9 @@ int main()
 	GLfloat vertices[] = {
 		//Positions         //Color			  //TexCoords
 		 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,  // top right
-		 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,  // bottom right
+		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,  // bottom right
 		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,  // bottom left
-		-0.5f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f  // top left
+		-0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f   // top left
 	};
 
 	GLuint indices[] = {
@@ -76,8 +83,10 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+	stbi_set_flip_vertically_on_load(true);
+
 	int width, height, channelCount;
-	unsigned char* data = Image::LoadData("UVChecker.jpg", &width, &height, &channelCount, 0);
+	unsigned char* data = stbi_load("D:/Projects/LearningGraphicsProgramming/LearningOpenGL/Resources/Textures/UVChecker.png", &width, &height, &channelCount, 0);
 
 	if (data)
 	{
@@ -89,7 +98,7 @@ int main()
 		std::cout << "Failed to load texture" << std::endl;
 	}
 
-	Image::FreeData(data);
+	stbi_image_free(data);
 
 	GLuint VAO;
 	glGenVertexArrays(1, &VAO);
