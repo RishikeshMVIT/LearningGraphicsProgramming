@@ -135,7 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(VisualStudioDir)\Libraries\glad\include;$(VisualStudioDir)\Libraries\glfw\include;$(VisualStudioDir)\Libraries\stb\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VisualStudioDir)\Libraries\glad\include;$(VisualStudioDir)\Libraries\glfw\include;$(VisualStudioDir)\Libraries\stb\include;$(VisualStudioDir)\Libraries\glm\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,7 +152,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(VisualStudioDir)\Libraries\glad\include;$(VisualStudioDir)\Libraries\glfw\include;$(VisualStudioDir)\Libraries\stb\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VisualStudioDir)\Libraries\glad\include;$(VisualStudioDir)\Libraries\glfw\include;$(VisualStudioDir)\Libraries\stb\include;$(VisualStudioDir)\Libraries\glm\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
