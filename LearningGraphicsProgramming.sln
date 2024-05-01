@@ -5,8 +5,6 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LearningOpenGL", "LearningOpenGL\LearningOpenGL.vcxproj", "{8474947F-4559-4517-9F69-6C6DBC6890F6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChernoOpenGL", "ChernoOpenGL\ChernoOpenGL.vcxproj", "{B45A8FD3-CEBC-4D9B-BC71-1CD32DB26C04}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LearningDirectX", "LearningDirectX\LearningDirectX.vcxproj", "{BD5513E4-A4E7-4F36-8EE4-B049DF1B0693}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LearningVulkan", "LearningVulkan\LearningVulkan.vcxproj", "{B80DE49F-47BB-461A-8C5D-6DF0E5A48748}"
@@ -27,14 +25,6 @@ Global
 		{8474947F-4559-4517-9F69-6C6DBC6890F6}.Release|x64.Build.0 = Release|x64
 		{8474947F-4559-4517-9F69-6C6DBC6890F6}.Release|x86.ActiveCfg = Release|Win32
 		{8474947F-4559-4517-9F69-6C6DBC6890F6}.Release|x86.Build.0 = Release|Win32
-		{B45A8FD3-CEBC-4D9B-BC71-1CD32DB26C04}.Debug|x64.ActiveCfg = Debug|x64
-		{B45A8FD3-CEBC-4D9B-BC71-1CD32DB26C04}.Debug|x64.Build.0 = Debug|x64
-		{B45A8FD3-CEBC-4D9B-BC71-1CD32DB26C04}.Debug|x86.ActiveCfg = Debug|Win32
-		{B45A8FD3-CEBC-4D9B-BC71-1CD32DB26C04}.Debug|x86.Build.0 = Debug|Win32
-		{B45A8FD3-CEBC-4D9B-BC71-1CD32DB26C04}.Release|x64.ActiveCfg = Release|x64
-		{B45A8FD3-CEBC-4D9B-BC71-1CD32DB26C04}.Release|x64.Build.0 = Release|x64
-		{B45A8FD3-CEBC-4D9B-BC71-1CD32DB26C04}.Release|x86.ActiveCfg = Release|Win32
-		{B45A8FD3-CEBC-4D9B-BC71-1CD32DB26C04}.Release|x86.Build.0 = Release|Win32
 		{BD5513E4-A4E7-4F36-8EE4-B049DF1B0693}.Debug|x64.ActiveCfg = Debug|x64
 		{BD5513E4-A4E7-4F36-8EE4-B049DF1B0693}.Debug|x64.Build.0 = Debug|x64
 		{BD5513E4-A4E7-4F36-8EE4-B049DF1B0693}.Debug|x86.ActiveCfg = Debug|Win32

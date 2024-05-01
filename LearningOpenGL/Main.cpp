@@ -1,19 +1,24 @@
+//Defines
 
-
+//Runtimes
 #include <iostream>
 
+//Libraries
 #include <glad\glad.h>
 #include <GLFW\glfw3.h>
 #include <stb\stb_image.h>
+#include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
+#include <glm\gtx\type_ptr.hpp>
 
-#include "CoreWindow.h"
-
+//Includes
+#include "Shader.h"
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
-#include "Shader.h"
 #include "Texture.h"
 
+//TODO: Refactor to own class
 void OnFramebufferResize(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -25,6 +30,29 @@ void OnInput(GLFWwindow* window)
 		glfwSetWindowShouldClose(window, true);
 }
 
+//Window width and height
+const unsigned int width = 960;
+const unsigned int height = 960;
+
+//Vertex Input
+GLfloat vertices[] = {
+	//Positions           //Color				 //TexCoords
+	-0.5f, 0.0f,  0.5f,   0.83f, 0.70f, 0.44f,   0.0f, 0.0f,
+	-0.5f, 0.0f, -0.5f,   0.83f, 0.70f, 0.44f,   1.0f, 0.0f,
+	 0.5f, 0.0f, -0.5f,   0.83f, 0.70f, 0.44f,   0.0f, 0.0f,
+	 0.5f, 0.0f,  0.5f,   0.83f, 0.70f, 0.44f,   1.0f, 0.0f,
+	 0.0f, 0.8f,  0.0f,   0.92f, 0.86f, 0.76f,   0.5f, 1.0f
+};
+
+GLuint indices[] = {
+	0,1,2,
+	0,2,3,
+	0,1,4,
+	1,2,4,
+	2,3,4,
+	3,0,4
+};
+
 int main()
 {
 	//GLFW Intitialisation
@@ -35,7 +63,7 @@ int main()
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//Create Window
-	GLFWwindow* window = glfwCreateWindow(960, 960, "LearningOpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(width, height, "LearningOpenGL", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -54,78 +82,39 @@ int main()
 	}
 
 	//Setting Viewport Dimensions
-	glViewport(0, 0, 960, 960);
+	glViewport(0, 0, width, height);
 	glfwSetFramebufferSizeCallback(window, OnFramebufferResize);
 
 	//Shaders
 	Shader basicShader("D:/Projects/LearningGraphicsProgramming/LearningOpenGL/Resources/Shader/BasicShader.vert", "D:/Projects/LearningGraphicsProgramming/LearningOpenGL/Resources/Shader/BasicShader.frag");
 
-	//Vertex Input
-	GLfloat vertices[] = {
-		//Positions         //Color			  //TexCoords
-		 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,  // top right
-		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,  // bottom right
-		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,  // bottom left
-		-0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f   // top left
-	};
+	//Vertex Attribute Object
+	VAO vao;
+	vao.Bind();
 
-	GLuint indices[] = {
-		0,1,3,
-		1,2,3
-	};
+	//Vertex Buffer Object
+	VBO vbo(vertices, sizeof(vertices));
+	//Entity Buffer Object
+	EBO ebo(indices,  sizeof(indices));
 
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	vao.LinkAttributes(vbo, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)(0));
+	vao.LinkAttributes(vbo, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	vao.LinkAttributes(vbo, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	vao.Unbind();
+	vbo.Unbind();
+	ebo.Unbind();
 
-	stbi_set_flip_vertically_on_load(true);
+	//Texture
+	Texture demoTexture("D:/Projects/LearningGraphicsProgramming/LearningOpenGL/Resources/Textures/UVChecker.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+	demoTexture.AssignTextureUnit(basicShader, "inTexture", 0);
 
-	int width, height, channelCount;
-	unsigned char* data = stbi_load("D:/Projects/LearningGraphicsProgramming/LearningOpenGL/Resources/Textures/UVChecker.png", &width, &height, &channelCount, 0);
+	float rotation = 0.0f;
+	double previousTime = glfwGetTime();
 
-	if (data)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-	{
-		std::cout << "Failed to load texture" << std::endl;
-	}
+	glEnable(GL_DEPTH_TEST);
 
-	stbi_image_free(data);
-
-	GLuint VAO;
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-
-	//Creating Vertex Buffer Object (VBO)
-	GLuint VBO;
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	GLuint EBO;
-	glGenBuffers(1, &EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	//Vertex Data Formatting
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-	glEnableVertexAttribArray(2);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-
+	//Main Loop
 	while (!glfwWindowShouldClose(window))
 	{
 		//Input Processing
@@ -133,12 +122,38 @@ int main()
 
 		//Rendering Commands
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		basicShader.Use();
-		glBindTexture(GL_TEXTURE_2D, texture);
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+		double currentTime = glfwGetTime();
+		if (currentTime - previousTime >= 1 / 60)
+		{
+			rotation += 0.05f;
+			previousTime = currentTime;
+		}
+
+		//Matrices
+		glm::mat4 model		 = glm::mat4(1.0f);
+		glm::mat4 view		 = glm::mat4(1.0f);
+		glm::mat4 projection = glm::mat4(1.0f);
+
+		model		= glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
+		view		= glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
+		projection  = glm::perspective(glm::radians(45.0f), (float)(width/height), 0.1f, 100.0f);
+
+		int modelLocation		= glGetUniformLocation(basicShader.ID, "model");
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
+		int viewLocation		= glGetUniformLocation(basicShader.ID, "view");
+		glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
+		int projectionLocation  = glGetUniformLocation(basicShader.ID, "projection");
+		glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
+
+		demoTexture.Bind();
+		vao.Bind();
+
+		//Draw Primitives
+		glDrawElements(GL_TRIANGLES, sizeof(vertices)/sizeof(int), GL_UNSIGNED_INT, 0);
 
 		//Swap Buffers
 		glfwSwapBuffers(window);
@@ -147,9 +162,11 @@ int main()
 		glfwPollEvents();
 	}
 
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-	glDeleteBuffers(1, &EBO);
+	vao.Delete();
+	vbo.Delete();
+	ebo.Delete();
+	demoTexture.Delete();
+	basicShader.Delete();
 
 	glfwTerminate();
 

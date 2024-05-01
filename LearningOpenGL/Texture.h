@@ -9,7 +9,6 @@ class Texture
 {
 public:
 	Texture(const char* image, GLenum type, GLenum slot, GLenum format, GLenum pixelType);
-	~Texture();
 
 	void AssignTextureUnit(Shader& shader, const char* uniform, GLuint unit);
 
@@ -18,10 +17,7 @@ public:
 	void Delete();
 
 private:
-	GLuint id;
+	GLuint ID;
 	GLenum type;
-
-	unsigned char* data = 0;
-
 };
 
