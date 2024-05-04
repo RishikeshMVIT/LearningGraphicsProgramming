@@ -7,13 +7,11 @@ layout (location = 2) in vec2 uvCoords;
 out vec3 vertexColor;
 out vec2 texCoords;
 
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
+uniform mat4 CAMERA_MATRIX;
 
 void main()
 {
-   gl_Position = projection * view * model * vec4(position, 1.0);
+   gl_Position = CAMERA_MATRIX * vec4(position, 1.0);
    vertexColor = color;
    texCoords = uvCoords;
 }

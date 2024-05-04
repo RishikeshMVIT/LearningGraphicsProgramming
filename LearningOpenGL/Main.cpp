@@ -9,7 +9,7 @@
 #include <stb\stb_image.h>
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
-#include <glm\gtx\type_ptr.hpp>
+#include <glm\gtc\type_ptr.hpp>
 
 //Includes
 #include "Shader.h"
@@ -17,6 +17,7 @@
 #include "VBO.h"
 #include "EBO.h"
 #include "Texture.h"
+#include "Camera.h"
 
 //TODO: Refactor to own class
 void OnFramebufferResize(GLFWwindow* window, int width, int height)
@@ -28,6 +29,8 @@ void OnInput(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
+
+	
 }
 
 //Window width and height
@@ -109,16 +112,16 @@ int main()
 	Texture demoTexture("D:/Projects/LearningGraphicsProgramming/LearningOpenGL/Resources/Textures/UVChecker.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
 	demoTexture.AssignTextureUnit(basicShader, "inTexture", 0);
 
-	float rotation = 0.0f;
-	double previousTime = glfwGetTime();
-
 	glEnable(GL_DEPTH_TEST);
+
+	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
 
 	//Main Loop
 	while (!glfwWindowShouldClose(window))
 	{
 		//Input Processing
 		OnInput(window);
+		camera.OnInput(window);
 
 		//Rendering Commands
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -126,28 +129,7 @@ int main()
 
 		basicShader.Use();
 
-		double currentTime = glfwGetTime();
-		if (currentTime - previousTime >= 1 / 60)
-		{
-			rotation += 0.05f;
-			previousTime = currentTime;
-		}
-
-		//Matrices
-		glm::mat4 model		 = glm::mat4(1.0f);
-		glm::mat4 view		 = glm::mat4(1.0f);
-		glm::mat4 projection = glm::mat4(1.0f);
-
-		model		= glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
-		view		= glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
-		projection  = glm::perspective(glm::radians(45.0f), (float)(width/height), 0.1f, 100.0f);
-
-		int modelLocation		= glGetUniformLocation(basicShader.ID, "model");
-		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
-		int viewLocation		= glGetUniformLocation(basicShader.ID, "view");
-		glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
-		int projectionLocation  = glGetUniformLocation(basicShader.ID, "projection");
-		glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
+		camera.SetMatrix(45.0f, 0.1f, 100.0f, basicShader, "CAMERA_MATRIX");
 
 		demoTexture.Bind();
 		vao.Bind();
