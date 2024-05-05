@@ -32,6 +32,8 @@
   <ItemGroup>
     <None Include="Resources\Shader\BasicShader.frag" />
     <None Include="Resources\Shader\BasicShader.vert" />
+    <None Include="Resources\Shader\Emissive.vert" />
+    <None Include="Resources\Shader\Emissive.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />

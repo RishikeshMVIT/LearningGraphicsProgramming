@@ -17,7 +17,8 @@ class Camera
 public:
 	Camera(int width, int height, glm::vec3 position) : width(width), height(height), position(position) {};
 
-	void SetMatrix(float fow, float nearPlane, float farPlane, Shader& shader, const char* uniform);
+	void UpdateMatrix(float fow, float nearPlane, float farPlane);
+	void SetMatrix(Shader& shader, const char* uniform);
 	void OnInput(GLFWwindow* window);
 
 public:
@@ -25,11 +26,13 @@ public:
 	glm::vec3 orientation = glm::vec3(0.0f,  0.0f, -1.0f);
 	glm::vec3 up = glm::vec3(0.0f,  1.0f,  0.0f);
 
+	glm::mat4 matrix = glm::mat4(1.0f);
+
 	int width;
 	int height;
 
-	float speed		  = 0.01f;
-	float sensitivity = 0.01f;
+	float speed		  = 0.1f;
+	float sensitivity = 2.0f;
 
 	bool firstClick = true;
 };

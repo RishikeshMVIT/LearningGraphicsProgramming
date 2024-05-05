@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-void Camera::SetMatrix(float fov, float nearPlane, float farPlane, Shader& shader, const char* uniform)
+void Camera::UpdateMatrix(float fov, float nearPlane, float farPlane)
 {
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection = glm::mat4(1.0f);
@@ -8,7 +8,12 @@ void Camera::SetMatrix(float fov, float nearPlane, float farPlane, Shader& shade
 	view = glm::lookAt(position, position + orientation, up);
 	projection = glm::perspective(glm::radians(fov), (float)width / height, nearPlane, farPlane);
 
-	glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(projection * view));
+	matrix = projection * view;
+}
+
+void Camera::SetMatrix(Shader& shader, const char* uniform)
+{
+	glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 void Camera::OnInput(GLFWwindow* window)
@@ -37,13 +42,14 @@ void Camera::OnInput(GLFWwindow* window)
 	{
 		position += speed * -up;
 	}
+
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
-		speed = 0.4f;
+		speed = 0.01f;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
 	{
-		speed = 0.1f;
+		speed = 0.001f;
 	}
 
 
@@ -81,7 +87,7 @@ void Camera::OnInput(GLFWwindow* window)
 		}
 
 		// Rotates the orientation left and right
-		orientation = glm::rotate(orientation, glm::radians(-rotY), up);
+		orientation = glm::normalize(glm::rotate(orientation, glm::radians(-rotY), up));
 
 		// Sets mouse cursor to the middle of the screen so that it doesn't end up roaming around
 		glfwSetCursorPos(window, (width / 2), (height / 2));
