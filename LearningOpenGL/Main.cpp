@@ -39,7 +39,7 @@ const unsigned int height = 960;
 
 //Vertex Input
 GLfloat vertices[] =
-{ //COORDINATES            COLORS                   TexCoord         NORMALS
+{ //     COORDINATES     /        COLORS          /    TexCoord   /        NORMALS       //
 	-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,      0.0f, -1.0f, 0.0f, // Bottom side
 	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 5.0f,      0.0f, -1.0f, 0.0f, // Bottom side
 	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 5.0f,      0.0f, -1.0f, 0.0f, // Bottom side
@@ -144,7 +144,7 @@ int main()
 	vao.LinkAttributes(vbo, 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)(0));
 	vao.LinkAttributes(vbo, 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));
 	vao.LinkAttributes(vbo, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
-	vao.LinkAttributes(vbo, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));
+	vao.LinkAttributes(vbo, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));
 
 	vao.Unbind();
 	vbo.Unbind();
@@ -201,7 +201,7 @@ int main()
 		camera.OnInput(window);
 
 		//Rendering Commands
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		camera.UpdateMatrix(45.0f, 0.1f, 100.0f);
@@ -211,7 +211,7 @@ int main()
 		camera.SetMatrix(basicShader, "CAMERA_MATRIX");
 		demoTexture.Bind();
 		vao.Bind();
-		glDrawElements(GL_TRIANGLES, sizeof(vertices)/sizeof(int), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, sizeof(vertices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
 
 		lightShader.Use();

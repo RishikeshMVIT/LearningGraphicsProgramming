@@ -15,18 +15,17 @@ uniform vec3 cameraPosition;
 void main()
 {
     //Ambient
-    float ambient = 0.20f;
+    float ambient = 0.20;
 
     //Diffuse
-    vec3 normal = normalize(normal);
-    vec3 lightDirection = normalize(cameraPosition - currentPosition);
-    float diffuse = max(dot(normal, lightDirection), 0.0f);
+    vec3 lightDirection = normalize(lightPosition - currentPosition);
+    float diffuse = max(dot(normal, lightDirection), 0.0);
 
     //Specular
-    float specularLight = 0.50f;
+    float specularLight = 0.50;
     vec3 viewDirection = normalize(cameraPosition - currentPosition);
     vec3 reflectionDirection = reflect(-lightDirection, normal);
-    float specularAmount = pow(max(dot(viewDirection, reflectionDirection), 0.0f), 8);
+    float specularAmount = pow(max(dot(viewDirection, reflectionDirection), 0.0), 8);
     float specular = specularAmount * specularLight;
 
     fragColor = texture(diffuseTexture, uvCoords) * lightColor * (diffuse + ambient + specular);

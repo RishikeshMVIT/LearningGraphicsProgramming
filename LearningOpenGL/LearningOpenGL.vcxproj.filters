@@ -65,8 +65,12 @@
     <None Include="Resources\Shader\BasicShader.frag">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="Resources\Shader\Emissive.vert" />
-    <None Include="Resources\Shader\Emissive.frag" />
+    <None Include="Resources\Shader\Emissive.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shader\Emissive.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VBO.h">

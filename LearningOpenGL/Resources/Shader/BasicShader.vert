@@ -15,10 +15,10 @@ uniform mat4 model;
 
 void main()
 {
-	currentPosition = vec3(model * vec4(inPosition, 1.0f));
+	currentPosition = vec3(model * vec4(inPosition, 1.0));
 	gl_Position = CAMERA_MATRIX * vec4(currentPosition, 1.0);
 	
 	vertexColor = inVertexColor;
 	uvCoords = inUVCoords;
-	normal = inNormal;
+	normal = normalize(inNormal);
 }
