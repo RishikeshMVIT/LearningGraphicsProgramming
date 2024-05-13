@@ -13,10 +13,51 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Platform">
+      <UniqueIdentifier>{afdf440c-86dc-4526-84fd-8e52b4f1314d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Platform">
+      <UniqueIdentifier>{e7e1761c-c302-43bf-93db-221ab78ab394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{ce28ba65-95aa-425f-8531-b07fb13ad934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application">
+      <UniqueIdentifier>{6ab4ece1-edb8-45d7-8e97-5cd986324724}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CoreWindow.cpp">
+      <Filter>Source Files\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="SplashWindow.cpp">
+      <Filter>Source Files\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BaseWindow.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreWindow.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="SplashWindow.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
