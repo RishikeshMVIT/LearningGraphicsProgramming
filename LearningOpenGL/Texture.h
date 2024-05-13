@@ -8,7 +8,7 @@
 class Texture
 {
 public:
-	Texture(const char* image, GLenum type, GLenum slot, GLenum format, GLenum pixelType);
+	Texture(const char* image, GLenum type, GLuint slot, GLenum format, GLenum pixelType);
 
 	void AssignTextureUnit(Shader& shader, const char* uniform, GLuint unit);
 
@@ -19,5 +19,6 @@ public:
 private:
 	GLuint ID;
 	GLenum type;
+	GLuint unit;
 };
 

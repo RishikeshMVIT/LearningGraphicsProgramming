@@ -1,6 +1,6 @@
 #include "Texture.h"
 
-Texture::Texture(const char* image, GLenum textureType, GLenum slot, GLenum format, GLenum pixelType)
+Texture::Texture(const char* image, GLenum textureType, GLuint slot, GLenum format, GLenum pixelType)
 {
 	type = textureType;
 
@@ -11,7 +11,8 @@ Texture::Texture(const char* image, GLenum textureType, GLenum slot, GLenum form
 	unsigned char* data = stbi_load(image, &imageWidth, &imageHeight, &channelCount, 0);
 
 	glGenTextures(1, &ID);
-	glActiveTexture(slot);
+	glActiveTexture(GL_TEXTURE0 + slot);
+	unit = slot;
 	glBindTexture(textureType, ID);
 
 	glTexParameteri(textureType, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
@@ -40,6 +41,7 @@ void Texture::AssignTextureUnit(Shader& shader, const char* uniform, GLuint unit
 
 void Texture::Bind()
 {
+	glActiveTexture(GL_TEXTURE0 + unit);
 	glBindTexture(type, ID);
 }
 
