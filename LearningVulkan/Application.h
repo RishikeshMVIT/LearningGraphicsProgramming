@@ -14,16 +14,14 @@
 #include <vulkan\vulkan_win32.h>
 #endif
 
-#include "Renderer.h"
-#include "CoreWindow.h"
+//#include "Renderer.h"
+//#include "CoreWindow.h"
 
 #define CHECK(function, expectedValue, message)		\
 if (function != expectedValue)						\
 {throw std::runtime_error(message);}				\
 
-#define VK_CHECK(function, message)					\
-if (function != VK_SUCCESS)							\
-(throw std::runtime_error(message);)				\
+#define VK_CHECK(function, message)	CHECK(function, VK_SUCCESS, message)
 
 #define APPLICATION_NAME "Theia"
 #define ENGINE_NAME "TheiaEngine"
@@ -33,7 +31,10 @@ if (function != VK_SUCCESS)							\
 class Application
 {
 public:
-	Application();
+	Application()
+	{
+
+	}
 	~Application();
 
 	bool Initialize();
@@ -43,9 +44,9 @@ public:
 private:
 	bool isRunning;
 
-	Renderer renderer;
+	//Renderer renderer;
 
-	CoreWindow window;
+	//CoreWindow window;
 
 	VkInstance		 instance;
 	VkPhysicalDevice physicalDevice;
